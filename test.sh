@@ -1,4 +1,4 @@
-export variable="test.sh"
+export variable="$1"
 echo $variable
 echo Test1
 ./test2.sh
