@@ -1,3 +1,6 @@
 #!/bin/sh
+git fetch --all
+git reset --hard
 git pull
-nixos-rebuild switch
+chmod +x *.sh
+#nixos-rebuild switch
