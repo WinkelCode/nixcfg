@@ -1,5 +1,5 @@
 #!/bin/sh
-export disk=$1
+disk=$1
 sgdisk --clear $disk
 sgdisk --new 1:0:+512M --typecode=1:ef00 $disk
 sgdisk --new 2:0:0 $disk
