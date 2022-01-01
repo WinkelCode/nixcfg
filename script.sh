@@ -10,3 +10,4 @@ mount /dev/sda2 /mnt
 btrfs subvolume create /mnt/@nix
 btrfs subvolume create /mnt/@home
 umount /mnt
+echo Test
