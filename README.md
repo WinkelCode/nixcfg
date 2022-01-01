@@ -1,1 +1,1 @@
-nixcfg
+My nixOS configurations
