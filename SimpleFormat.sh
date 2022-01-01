@@ -6,3 +6,4 @@ sgdisk --new 2:0:0 $disk
 mkfs.vfat -F 32 ${disk}1
 mkfs.btrfs -f ${disk}2
 echo Test
+./SimpleFS.sh
