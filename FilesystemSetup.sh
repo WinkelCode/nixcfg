@@ -53,8 +53,11 @@ umount /mnt
 if [ $layout == tmpfs ]; then echo "Mounting TMPFS Root"; mount -t tmpfs tmpfs /mnt
     else echo "Mounting Root Subvolume"; mount -o subvol=@ $datapart /mnt; fi
 
+echo "Mounting Boot Partition"
 mkdir /mnt/boot; mount $efipart /mnt/boot
+echo "Mounting @home Subvolume"
 mkdir /mnt/home; mount -o subvol=@home $datapart /mnt/home
+echo "Mounting @Library Subvolume"
 mkdir /mnt/Library; mount -o subvol=@Library $datapart /mnt/Library
 
 echo done
