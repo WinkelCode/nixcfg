@@ -43,7 +43,7 @@ umount /mnt
 
 # Remout with Subvolumes - With Root TMPFS if Desired
 if [ $layout == tmpfs ]; then mount -t tmpfs none /mnt
-    else echo mount -o subvol=@ $datapart /mnt; fi
+    else mount -o subvol=@ $datapart /mnt; fi
 
 mkdir /mnt/boot; mount $efipart /mnt/boot
 mkdir /mnt/home; mount -o subvol=@home $datapart /mnt/home
