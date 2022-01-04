@@ -14,9 +14,6 @@ echo "Format Partitions with EFI @ \"$efipart\" and BTRFS @ \"$datapart\"?"
 read -p "Continue (y/N)?" -n 1 confirm; printf "\n"
 if [[ -z "$confirm" || "$confirm" =~ [^Yy] ]]; then echo "Cancelled"; exit 1; fi;
 
-echo "Unmounting /mnt"
-umount -Rf /mnt
-
 # Normal or TMPFS
 layout=none
 until [[ $layout =~ [12] ]]; do

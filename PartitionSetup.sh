@@ -1,5 +1,7 @@
 #!/bin/sh
-export disk=$1
+disk=$1
+echo "Unmounting /mnt"
+umount -Rf /mnt
 echo "Clearing Disk $disk"
 sgdisk --clear $disk
 echo "Making EFI Partition"
