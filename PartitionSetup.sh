@@ -1,5 +1,6 @@
 #!/bin/sh
 disk=$1
+if [ -z $1 ]; then echo "Missing Disk Parameter (\$1)"; exit 1; fi
 # Ask for Confirmation
 echo "Format Disk $disk ?"
 read -p "Continue (y/N)?" -n 1 confirm; printf "\n"
