@@ -1,5 +1,9 @@
 #!/bin/sh
 disk=$1
+# Ask for Confirmation
+echo "Format Disk $disk ?"
+read -p "Continue (y/N)?" -n 1 confirm; printf "\n"
+if [[ -z "$confirm" || "$confirm" =~ [^Yy] ]]; then echo "Cancelled"; exit 1; fi;
 echo "Unmounting /mnt"
 umount -Rf /mnt
 echo "Clearing Disk $disk"
