@@ -42,7 +42,7 @@ btrfs subvolume create /mnt/@home
 umount /mnt
 
 # Remout with Subvolumes - With Root TMPFS if Desired
-if [ $layout == tmpfs ]; then mount -t tmpfs none /mnt
+if [ $layout == tmpfs ]; then mount -t tmpfs tmpfs /mnt
     else mount -o subvol=@ $datapart /mnt; fi
 
 mkdir /mnt/boot; mount $efipart /mnt/boot
