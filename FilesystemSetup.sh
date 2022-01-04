@@ -14,6 +14,9 @@ echo "Format Partitions with EFI @ \"$efipart\" and BTRFS @ \"$datapart\"?"
 read -p "Continue (y/N)?" -n 1 confirm; printf "\n"
 if [[ -z "$confirm" || "$confirm" =~ [^Yy] ]]; then echo "Cancelled"; exit 1; fi;
 
+echo "Unmounting /mnt"
+umount -Rf /mnt
+
 # Normal or TMPFS
 layout=none
 until [[ $layout =~ [12] ]]; do
@@ -26,24 +29,29 @@ done
 if [ $layout == 1 ]; then layout=normal # Normal Formatting  
     elif [ $layout == 2 ]; then layout=tmpfs; fi # TMPFS Formatting
 
-# Formatting Partitions
+echo "Formatting EFI Partition $efipart"
 mkfs.vfat -F 32 $efipart
+echo "Formatting Data Partition $datapart"
 mkfs.btrfs -f $datapart
 
 # Mount BTRFS for Subvolume Creation
+echo "Mounting $datapart for Subvolume Creation"
 mount $datapart /mnt
 
 # Create Appropriate Subvolumes
-if [ $layout == normal ]; then btrfs subvolume create /mnt/@; fi # Root only with Normal Layout
-btrfs subvolume create /mnt/@Library
+if [ $layout == normal ]; then echo "Creating Root Subvolume"; btrfs subvolume create /mnt/@; else echo "Skipping Root Subvolume"; fi
+echo "Creating @home Subvolume"
 btrfs subvolume create /mnt/@home
+echo "Creating @Library Subvolume"
+btrfs subvolume create /mnt/@Library
 
 # Unmount BTRFS after Subvolume Creation
+echo "Unmounting $datapart after Subvolume Creation"
 umount /mnt
 
 # Remout with Subvolumes - With Root TMPFS if Desired
-if [ $layout == tmpfs ]; then mount -t tmpfs tmpfs /mnt
-    else mount -o subvol=@ $datapart /mnt; fi
+if [ $layout == tmpfs ]; then echo "Mounting TMPFS Root"; mount -t tmpfs tmpfs /mnt
+    else echo "Mounting Root Subvolume"; mount -o subvol=@ $datapart /mnt; fi
 
 mkdir /mnt/boot; mount $efipart /mnt/boot
 mkdir /mnt/home; mount -o subvol=@home $datapart /mnt/home
