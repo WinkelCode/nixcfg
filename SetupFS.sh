@@ -27,26 +27,27 @@ if [ $layout == 1 ]; then layout=normal # Normal Formatting
     elif [ $layout == 2 ]; then layout=tmpfs; fi # TMPFS Formatting
 
 # Formatting Partitions
-echo mkfs.vfat -F 32 $efipart
-echo mkfs.btrfs -f $datapart
+mkfs.vfat -F 32 $efipart
+mkfs.btrfs -f $datapart
 
 # Mount BTRFS for Subvolume Creation
-echo mount $datapart /mnt
+mount $datapart /mnt
 
 # Create Appropriate Subvolumes
-if [ $layout == normal ]; then echo btrfs subvolume create /mnt/@; fi # Root only with Normal Layout
-echo btrfs subvolume create /mnt/@Library
-echo btrfs subvolume create /mnt/@home
+if [ $layout == normal ]; then btrfs subvolume create /mnt/@; fi # Root only with Normal Layout
+btrfs subvolume create /mnt/@Library
+btrfs subvolume create /mnt/@home
 
 # Unmount BTRFS after Subvolume Creation
-echo umount /mnt
+umount /mnt
 
 # Remout with Subvolumes - With Root TMPFS if Desired
-if [ $layout == tmpfs ]; then echo mount -t tmpfs none /mnt
+if [ $layout == tmpfs ]; then mount -t tmpfs none /mnt
     else echo mount -o subvol=@ $datapart /mnt; fi
 
-echo mkdir /mnt/home; echo mount -o subvol=@home $datapart /mnt/home
-echo mkdir /mnt/Library; echo mount -o subvol=@Library $datapart /mnt/Library
+mkdir /mnt/boot; mount $efipart /mnt/boot
+mkdir /mnt/home; mount -o subvol=@home $datapart /mnt/home
+mkdir /mnt/Library; mount -o subvol=@Library $datapart /mnt/Library
 
 echo done
 exit
