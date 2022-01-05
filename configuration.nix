@@ -22,6 +22,7 @@
     services.chrony.servers = [
       ptbtime1.ptb.de
     ];
+  };
 
   # Network
   networking = {
@@ -54,7 +55,4 @@
   ];
   
   system.stateVersion = "21.11"; # Initial Version Thingy
-
-
 }
-
