@@ -41,6 +41,7 @@ echo "Creating @home Subvolume"
 btrfs subvolume create /mnt/@home
 echo "Creating @Library Subvolume"
 btrfs subvolume create /mnt/@Library
+if [ $3 == nix ]; then echo "Creating @nix Subvolume"; btrfs subvolume create /mnt/@nix; fi
 
 # Unmount BTRFS after Subvolume Creation
 echo "Unmounting $datapart after Subvolume Creation"
@@ -56,6 +57,19 @@ echo "Mounting @home Subvolume"
 mkdir /mnt/home; mount -o subvol=@home $datapart /mnt/home
 echo "Mounting @Library Subvolume"
 mkdir /mnt/Library; mount -o subvol=@Library $datapart /mnt/Library
+if [ $3 == nix ]; then echo "Mounting @nix Subvolume"; mkdir /mnt/nix; mount -o subvol=@nix $datapart /mnt/nix; fi
+
+# Creating Bind Mounts if NixOS
+if [ $3 == nix ]; then echo "Creating Bind Mounts for nixOS Persistence"
+    echo "Creating Destination Folders"
+    mkdir -p /mnt/{etc/nixos,var/log}
+    echo "Creating Source Folders"
+    mkdir -p /mnt/Library/nixOS/{config,log}
+    echo "Mounting nixOS Configuration Directory"
+    mount -o bind /mnt/Library/nixOS/config /mnt/etc/nixos
+    echo "Mounting nixOS Log Directory"
+    mount -o bind /mnt/Library/nixOS/log /mnt/var/log
+fi    
 
 echo done
 exit

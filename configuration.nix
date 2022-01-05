@@ -12,6 +12,15 @@
   # Timezone & Locale
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
+  
+  # NTP
+  services.timesyncd.enable = false; # Disable timesyncd
+  services.chrony = { # Enable and Set up Chrony
+    enable = true;
+    services.chrony.enableNTS = true;
+    services.chrony.servers = [
+      ptbtime1.ptb.de
+    ];
 
   # Network
   networking = {
