@@ -20,7 +20,7 @@
     enable = true;
     services.chrony.enableNTS = true;
     services.chrony.servers = [
-      ptbtime1.ptb.de
+      "ptbtime1.ptb.de"
     ];
   };
 
