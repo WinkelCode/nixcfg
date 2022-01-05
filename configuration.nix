@@ -18,8 +18,8 @@
   services.timesyncd.enable = false; # Disable timesyncd
   services.chrony = { # Enable and Set up Chrony
     enable = true;
-    services.chrony.enableNTS = true;
-    services.chrony.servers = [
+    enableNTS = true;
+    servers = [
       "ptbtime1.ptb.de"
     ];
   };
