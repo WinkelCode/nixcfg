@@ -10,7 +10,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
-
   # Timezone & Locale
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -56,5 +55,6 @@
   
   system.stateVersion = "21.11"; # Initial Version Thingy
 
-};
+
+}
 
