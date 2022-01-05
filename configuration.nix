@@ -8,6 +8,8 @@
 
   # Systemd-Boot Stuff
   boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
+
 
   # Timezone & Locale
   time.timeZone = "Europe/Berlin";
