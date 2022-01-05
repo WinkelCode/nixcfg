@@ -48,7 +48,7 @@ echo "Unmounting $datapart after Subvolume Creation"
 umount /mnt
 
 # Remout with Subvolumes - With Root TMPFS if Desired
-if [ $layout == tmpfs ]; then echo "Mounting TMPFS Root"; mount -t tmpfs tmpfs /mnt
+if [ $layout == tmpfs ]; then echo "Mounting TMPFS Root"; mount -o size=2G mode=755 -t tmpfs tmpfs /mnt
     else echo "Mounting Root Subvolume"; mount -o subvol=@ $datapart /mnt; fi
 
 echo "Mounting Boot Partition"
