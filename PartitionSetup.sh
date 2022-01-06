@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 disk=$1
 
 # Ensuring a Disk is Specified
@@ -22,4 +24,4 @@ echo "Making Data Partition"
 sgdisk --new 2:0:0 $disk
 
 echo "Calling File System Creation Script"
-./FilesystemSetup.sh ${disk}1 ${disk}2
+./Nix_FS_Setup.sh ${disk}1 ${disk}2
