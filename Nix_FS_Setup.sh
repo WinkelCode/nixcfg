@@ -11,7 +11,7 @@ mkfs.btrfs -f $2
 
 mount $2 /mnt
 
-mkdir /mnt/System
+mkdir /mnt/nixOS
 
 btrfs subvolume create /mnt/nixOS/@Logs
 btrfs subvolume create /mnt/nixOS/@Config
