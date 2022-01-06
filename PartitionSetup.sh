@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 disk=$1
 
@@ -13,6 +12,8 @@ if [[ -z "$confirm" || "$confirm" =~ [^Yy] ]]; then echo "Cancelled"; exit 1; fi
 
 echo "Unmounting /mnt"
 umount -Rf /mnt
+
+set -e # From now on, abort on error
 
 echo "Clearing Disk $disk"
 sgdisk --clear $disk
