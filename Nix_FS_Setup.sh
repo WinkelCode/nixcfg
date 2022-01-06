@@ -13,9 +13,9 @@ mount $2 /mnt
 
 mkdir /mnt/System
 
-btrfs subvolume create /mnt/System/@nixLogs
-btrfs subvolume create /mnt/System/@nixConfig
-btrfs subvolume create /mnt/System/@nixSystem
+btrfs subvolume create /mnt/nixOS/@Logs
+btrfs subvolume create /mnt/nixOS/@Config
+btrfs subvolume create /mnt/nixOS/@System
 btrfs subvolume create /mnt/@home
 
 umount /mnt
@@ -24,10 +24,10 @@ mount -o size=2G -o mode=755 -t tmpfs tmpfs /mnt
 
 mkdir /mnt/boot; mount $1 /mnt/boot
 
-mkdir -p /mnt/var/log; mount -o subvol=System/@nixLogs $2 /mnt/var/log
-mkdir -p /mnt/etc/nixos; mount -o subvol=System/@nixConfig $2 /mnt/etc/nixos
-mkdir /mnt/nix; mount -o subvol=System/@nixSystem $2 /mnt/nix
-mkdir /mnt/home; mount -o subvol=System/@home $2 /mnt/home
+mkdir -p /mnt/var/log; mount -o subvol=nixOS/@Logs $2 /mnt/var/log
+mkdir -p /mnt/etc/nixos; mount -o subvol=nixOS/@Config $2 /mnt/etc/nixos
+mkdir /mnt/nix; mount -o subvol=nixOS/@System $2 /mnt/nix
+mkdir /mnt/home; mount -o subvol=@home $2 /mnt/home
 
 sync
 
