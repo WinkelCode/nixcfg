@@ -25,4 +25,4 @@ echo "Making Data Partition"
 sgdisk --new 2:0:0 $disk
 
 echo "Calling File System Creation Script"
-./Nix_FS_Setup.sh ${disk}1 ${disk}2
+./nixOSFileystemSetup.sh ${disk}1 ${disk}2
